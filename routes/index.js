@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 require('../db');
 require('dotenv').config();
 // console.log(process.env.port,process.env.Mongo_url,process.env.VERFICATION_JWT,process.env.REFRESH_JWT,'here')
+//finally done something
 const app = express();
 
 app.use(cors());
