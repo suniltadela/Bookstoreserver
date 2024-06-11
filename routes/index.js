@@ -14,7 +14,7 @@ const app = express();
 
 // app.use(cors());
 const corsOptions = {
-    origin: 'https://bookstoreclient-git-feature-client-3-suniltadelas-projects.vercel.app', // Your frontend URL
+    origin: '*', // Your frontend URL
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
