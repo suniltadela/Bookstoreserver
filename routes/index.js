@@ -35,6 +35,9 @@ app.get('/', (req, res) => {
     res.send('Hello, world! server THIS STEP ADDED FOR SOME CHANGE');
 });
 
+app.get('/check', (req, res) => {
+    res.send('getworking good');
+});
 app.post('/signup', async (req, res) => {
     try {
         const { name, email, password, age, gender } = req.body;
