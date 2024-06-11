@@ -15,7 +15,7 @@ const app = express();
 // app.use(cors());
 const corsOptions = {
     origin: 'https://bookstoreclient-git-feature-client-3-suniltadelas-projects.vercel.app', // Your frontend URL
-    credentials: true, // This allows the server to receive cookies from the frontend
+    credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
     preflightContinue: false,
@@ -24,6 +24,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
+
 
 app.use(bodyParser.json());
 app.use(express.json());
