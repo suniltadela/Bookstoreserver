@@ -13,10 +13,18 @@ require('dotenv').config();
 const app = express();
 
 // app.use(cors());
-app.use(cors({
-    origin: 'https://bookstoreclient-git-feature-client-3-suniltadelas-projects.vercel.app/', // Add your frontend URL here
-    credentials: true,
-}));
+const corsOptions = {
+    origin: 'https://bookstoreclient-git-feature-client-3-suniltadelas-projects.vercel.app', // Your frontend URL
+    credentials: true, // This allows the server to receive cookies from the frontend
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
+
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
