@@ -12,12 +12,17 @@ require('dotenv').config();
 //finally done something
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+    origin: 'https://bookstoreclient-git-feature-client-3-suniltadelas-projects.vercel.app/', // Add your frontend URL here
+    credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 
 // Configure nodemailer
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -43,7 +48,7 @@ app.post('/signup', async (req, res) => {
         const signupDetail = new signup({ name, email, password: hashedPassword, age, gender, verified: false });
 
         // Generate a verification token
-        const verificationToken = jwt.sign({ email },process.env.VERFICATION_JWT, { expiresIn: '1h' });
+        const verificationToken = jwt.sign({ email },process.env.VERFICATION_JWT, { expiresIn: '1hr' });
 
         // Send verification email
         const mailOptions = {
