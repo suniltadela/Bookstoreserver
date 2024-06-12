@@ -8,11 +8,10 @@ const nodemailer = require('nodemailer');
 const cookieParser = require('cookie-parser');
 require('../db');
 require('dotenv').config();
-// console.log(process.env.port,process.env.Mongo_url,process.env.VERFICATION_JWT,process.env.REFRESH_JWT,'here')
-//finally done something
+
 const app = express();
 
-// app.use(cors());
+// Define CORS options
 const corsOptions = {
     origin: 'https://bookstoreclient-ten.vercel.app', // Your frontend URL
     credentials: true,
@@ -22,9 +21,9 @@ const corsOptions = {
     optionsSuccessStatus: 204,
 };
 
-app.use(cors());
-app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
-
+// Apply CORS middleware
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(express.json());
