@@ -117,18 +117,18 @@ app.get('/verify/:token', async (req, res) => {
     }
 });
 
-app.post("/login", async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        // console.log('Received email:', email); // Logging received email
+        console.log('Received email:', email);
 
-        const existingUser = await signup.findOne({ email });
+        const existingUser = await Signup.findOne({ email });
 
         if (!existingUser) {
-            // console.log('User not found');
+            console.log('User not found');
             return res.status(401).json({ message: 'Invalid email or password' });
         }
-// NEED TO WORK ON THIS VERIFY
+
         if (!existingUser.verified) {
             console.log('User not verified');
             return res.status(401).json({ message: 'Email not verified. Please check your email.' });
@@ -142,19 +142,20 @@ app.post("/login", async (req, res) => {
 
         const accessToken = jwt.sign({ id: existingUser._id }, process.env.ACCESS_JWT, { expiresIn: '1hr' });
         const refreshToken = jwt.sign({ id: existingUser._id }, process.env.REFRESH_JWT);
+
         existingUser.refreshToken = refreshToken;
         await existingUser.save();
 
-        res.cookie("refreshtoken", refreshToken, { httpOnly: true, path: '/refresh_token' });
+        res.cookie('refreshtoken', refreshToken, { httpOnly: true, path: '/refresh_token' });
 
         res.status(200).json({
             accessToken,
             refreshToken,
-            message: "User logged in"
+            message: 'User logged in'
         });
     } catch (err) {
         console.error('Internal server error:', err);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
