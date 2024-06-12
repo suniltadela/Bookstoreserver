@@ -122,7 +122,7 @@ app.post('/login', async (req, res) => {
         const { email, password } = req.body;
         console.log('Received email:', email);
 
-        const existingUser = await Signup.findOne({ email });
+        const existingUser = await signup.findOne({ email });
 
         if (!existingUser) {
             console.log('User not found');
