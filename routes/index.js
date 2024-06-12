@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const signup = require('../schemas/signupschema/signupschema');
 const bcrypt = require('bcrypt');
-// const cors = require('cors');
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const cookieParser = require('cookie-parser');
@@ -12,18 +12,18 @@ require('dotenv').config();
 //finally done something
 const app = express();
 
-// // app.use(cors());
-// const corsOptions = {
-//     origin: 'https://bookstoreclient-ten.vercel.app', // Your frontend URL
-//     credentials: true,
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-//     allowedHeaders: 'Content-Type, Authorization',
-//     preflightContinue: false,
-//     optionsSuccessStatus: 204,
-// };
-
 // app.use(cors());
-// app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
+const corsOptions = {
+    origin: 'https://bookstoreclient-ten.vercel.app', // Your frontend URL
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+};
+
+app.use(cors());
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
 
 
 app.use(bodyParser.json());
