@@ -1,24 +1,37 @@
-const mongoose=require('mongoose');
-const signupschema=mongoose.Schema({
-    name:{
-        type:String,
+const mongoose = require('mongoose');
+
+const signupschema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true, // Marking name as required
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
+        required: true, // Marking email as required
+        unique: true, // Ensuring email is unique
     },
-    password:{
-        type:String,
-        require:true,
+    password: {
+        type: String,
+        required: true, // Password is already required
     },
-    age:{
-        type:Number,
+    age: {
+        type: Number,
+        required: true, // Marking age as required
     },
-    gender:{
-        type:String,
+    gender: {
+        type: String,
+        required: true, // Marking gender as required
     },
-    profilepic:{
-        type:String
+    profilepic: {
+        type: String,
+        required: false // Profile picture is optional
+    },
+    verified: {
+        type: Boolean,
+        required: true, // Verified is already required
+        default: false // Default value for verified
     }
-})
-signup=mongoose.model('signup',signupschema);
-module.exports=signup
+});
+
+const Signup = mongoose.model('Signup', signupschema);
+module.exports = Signup;
