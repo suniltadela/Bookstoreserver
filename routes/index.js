@@ -13,7 +13,7 @@ const app = express();
 
 // Define CORS options
 const corsOptions = {
-    origin: 'https://bookstoreclient-ten.vercel.app', // Your frontend URL
+    origin: ['https://bookstoreclient-ten.vercel.app'], // Your frontend URL
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
@@ -66,7 +66,7 @@ app.post('/signup', async (req, res) => {
             from: process.env.TRANSPORT_EMAIL,
             to: email,
             subject: 'Email Verification for Bookstore',
-            text: `Please verify your email by clicking the link: http://localhost:3000/verify/${verificationToken}`
+            text: `Please verify your email by clicking the link: https://bookstoreserver-five.vercel.app/verify/${verificationToken}`
         };
 
         transporter.sendMail(mailOptions, async (error, info) => {
@@ -129,10 +129,10 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 // NEED TO WORK ON THIS VERIFY
-        // if (!existingUser.verified) {
-        //     console.log('User not verified');
-        //     return res.status(401).json({ message: 'Email not verified. Please check your email.' });
-        // }
+        if (!existingUser.verified) {
+            console.log('User not verified');
+            return res.status(401).json({ message: 'Email not verified. Please check your email.' });
+        }
 
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordCorrect) {
