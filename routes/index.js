@@ -14,7 +14,7 @@ const app = express();
 
 // app.use(cors());
 const corsOptions = {
-    origin: '*', // Your frontend URL
+    origin: 'https://bookstoreclient-ten.vercel.app', // Your frontend URL
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
