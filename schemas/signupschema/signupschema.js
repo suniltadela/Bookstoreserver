@@ -10,6 +10,11 @@ const signupschema = new mongoose.Schema({
         required: true, // Marking email as required
         unique: true, // Ensuring email is unique
     },
+    phone: {
+        type: String,
+        required: true, // Marking email as required
+        unique: true, // Ensuring email is unique
+    },
     password: {
         type: String,
         required: true, // Password is already required
@@ -30,6 +35,9 @@ const signupschema = new mongoose.Schema({
         type: Boolean,
         required: true, // Verified is already required
         default: false // Default value for verified
+    },
+    resetPasswordOTP: {
+        type: Number
     }
 });
 
