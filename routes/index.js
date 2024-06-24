@@ -152,7 +152,10 @@ app.post('/update-password', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        if (user.resetPasswordOTP !== otp) {
+        // Convert otp to number to ensure comparison works
+        const otpNumber = parseInt(otp, 10);
+
+        if (user.resetPasswordOTP !== otpNumber) {
             return res.status(400).json({ message: 'Invalid OTP' });
         }
 
