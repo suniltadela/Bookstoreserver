@@ -58,6 +58,35 @@ function formatPhoneNumber(phoneNumber, countryCode = 'IN') {
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit OTP
 }
+//get userdata
+// app.get('/getdetails',async(req,res)=>{
+//     const{identifier}=req.body;
+//     let user;
+//     user = await signup.findOne({ email: identifier });
+
+// })
+app.get('/getdetails', async (req, res) => {
+    try {
+        const { identifier } = req.query;
+        
+        if (!identifier) {
+            return res.status(400).json({ message: 'Identifier is required' });
+        }
+
+        // Find the user by email
+        const user = await signup.findOne({ email: identifier });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Return the user details
+        return res.status(200).json({ user });
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 // Route to send OTP for forgot password (email or phone)
 app.post('/forgot-password', async (req, res) => {
@@ -283,7 +312,8 @@ app.post('/login', async (req, res) => {
         res.status(200).json({
             accessToken,
             refreshToken,
-            message: 'User logged in'
+            message: 'User logged in',
+            name: existingUser.name
         });
     } catch (err) {
         res.status(500).json({ message: 'Internal server error' });
